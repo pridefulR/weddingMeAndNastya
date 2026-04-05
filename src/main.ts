@@ -8,6 +8,13 @@ type CountdownParts = {
 };
 
 const TARGET_DATE_ISO = "2026-07-24T16:00:00+04:00";
+const MAP_WIDGET_BASE_SRC =
+  "https://yandex.ru/map-widget/v1/?um=constructor%3A96eb685c041cf644d62b12a6ea9690f08f4bd3d117365123f13948b235423827&source=constructor";
+const ROUTE_LINK =
+  "https://yandex.ru/maps/?rtext=~54.460823%2C48.755921&z=15";
+const MAP_BREAKPOINT_DESKTOP = 768;
+const MAP_WIDTH_MOBILE = 320;
+const MAP_WIDTH_DESKTOP = 620;
 const INVITE_LETTERS = ["L", "O", "V", "E"] as const;
 const HORIZONTAL_GAP_MIN = 0;
 const HORIZONTAL_GAP_MAX = 15;
@@ -142,6 +149,29 @@ app.innerHTML = `
             </div>
           </div>
         </section>
+
+        <section class="location-map" aria-label="Как добраться до турбазы">
+          <div class="love-card location-map__content">
+            <h2 class="location-map__title">Как добраться до турбазы</h2>
+            <div class="location-map__frame-wrap">
+              <iframe
+                class="location-map__frame"
+                src="about:blank"
+                title="Карта места проведения свадьбы"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+              ></iframe>
+            </div>
+            <a
+              class="location-map__route"
+              href="${ROUTE_LINK}"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Построить маршрут
+            </a>
+          </div>
+        </section>
       </div>
     </section>
   </main>
@@ -152,6 +182,7 @@ const hoursNode = document.querySelector<HTMLElement>("#hours");
 const minutesNode = document.querySelector<HTMLElement>("#minutes");
 const secondsNode = document.querySelector<HTMLElement>("#seconds");
 const invitePatternNode = document.querySelector<HTMLElement>("#invitePattern");
+const mapFrameNode = document.querySelector<HTMLIFrameElement>(".location-map__frame");
 
 if (!daysNode || !hoursNode || !minutesNode || !secondsNode) {
   throw new Error("Countdown nodes are missing");
@@ -174,6 +205,33 @@ const formatValue = (value: number): string => value.toString().padStart(2, "0")
 
 const randomInt = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+};
+
+const getMapWidthByViewport = (): number => {
+  return window.innerWidth >= MAP_BREAKPOINT_DESKTOP ? MAP_WIDTH_DESKTOP : MAP_WIDTH_MOBILE;
+};
+
+const buildMapWidgetSrc = (width: number): string => {
+  const mapUrl = new URL(MAP_WIDGET_BASE_SRC);
+  mapUrl.searchParams.set("width", String(width));
+  return mapUrl.toString();
+};
+
+let activeMapWidth: number | undefined;
+
+const updateMapWidgetSrc = (): void => {
+  if (!mapFrameNode) {
+    return;
+  }
+
+  const nextWidth = getMapWidthByViewport();
+
+  if (activeMapWidth === nextWidth) {
+    return;
+  }
+
+  mapFrameNode.src = buildMapWidgetSrc(nextWidth);
+  activeMapWidth = nextWidth;
 };
 
 const renderInvitePattern = (): void => {
@@ -239,6 +297,7 @@ renderCountdown();
 setInterval(renderCountdown, 1000);
 
 renderInvitePattern();
+updateMapWidgetSrc();
 
 let invitePatternResizeTimer: number | undefined;
 
@@ -249,5 +308,6 @@ window.addEventListener("resize", () => {
 
   invitePatternResizeTimer = window.setTimeout(() => {
     renderInvitePattern();
+    updateMapWidgetSrc();
   }, 120);
 });
