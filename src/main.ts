@@ -11,7 +11,7 @@ const TARGET_DATE_ISO = "2026-07-24T16:00:00+04:00";
 const MAP_WIDGET_SRC =
   "https://yandex.ru/map-widget/v1/?um=constructor%3A96eb685c041cf644d62b12a6ea9690f08f4bd3d117365123f13948b235423827&source=constructor";
 const ROUTE_LINK =
-  "https://yandex.ru/maps/?rtext=~54.460823%2C48.755921&z=15";
+  "https://yandex.com/maps/-/CPfrfV-t";
 const MAP_BREAKPOINT_DESKTOP = 768;
 const MAP_HEIGHT_MOBILE = 296;
 const MAP_HEIGHT_DESKTOP = 360;
