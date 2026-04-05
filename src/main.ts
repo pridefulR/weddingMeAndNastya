@@ -8,13 +8,13 @@ type CountdownParts = {
 };
 
 const TARGET_DATE_ISO = "2026-07-24T16:00:00+04:00";
-const MAP_WIDGET_BASE_SRC =
+const MAP_WIDGET_SRC =
   "https://yandex.ru/map-widget/v1/?um=constructor%3A96eb685c041cf644d62b12a6ea9690f08f4bd3d117365123f13948b235423827&source=constructor";
 const ROUTE_LINK =
   "https://yandex.ru/maps/?rtext=~54.460823%2C48.755921&z=15";
 const MAP_BREAKPOINT_DESKTOP = 768;
-const MAP_WIDTH_MOBILE = 320;
-const MAP_WIDTH_DESKTOP = 620;
+const MAP_HEIGHT_MOBILE = 296;
+const MAP_HEIGHT_DESKTOP = 360;
 const INVITE_LETTERS = ["L", "O", "V", "E"] as const;
 const HORIZONTAL_GAP_MIN = 0;
 const HORIZONTAL_GAP_MAX = 15;
@@ -156,7 +156,9 @@ app.innerHTML = `
             <div class="location-map__frame-wrap">
               <iframe
                 class="location-map__frame"
-                src="about:blank"
+                src="${MAP_WIDGET_SRC}"
+                height="${MAP_HEIGHT_MOBILE}"
+                frameborder="0"
                 title="Карта места проведения свадьбы"
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
@@ -207,31 +209,18 @@ const randomInt = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const getMapWidthByViewport = (): number => {
-  return window.innerWidth >= MAP_BREAKPOINT_DESKTOP ? MAP_WIDTH_DESKTOP : MAP_WIDTH_MOBILE;
+const getMapHeightByViewport = (): number => {
+  return window.innerWidth >= MAP_BREAKPOINT_DESKTOP
+    ? MAP_HEIGHT_DESKTOP
+    : MAP_HEIGHT_MOBILE;
 };
 
-const buildMapWidgetSrc = (width: number): string => {
-  const mapUrl = new URL(MAP_WIDGET_BASE_SRC);
-  mapUrl.searchParams.set("width", String(width));
-  return mapUrl.toString();
-};
-
-let activeMapWidth: number | undefined;
-
-const updateMapWidgetSrc = (): void => {
+const updateMapFrameHeight = (): void => {
   if (!mapFrameNode) {
     return;
   }
 
-  const nextWidth = getMapWidthByViewport();
-
-  if (activeMapWidth === nextWidth) {
-    return;
-  }
-
-  mapFrameNode.src = buildMapWidgetSrc(nextWidth);
-  activeMapWidth = nextWidth;
+  mapFrameNode.setAttribute("height", String(getMapHeightByViewport()));
 };
 
 const renderInvitePattern = (): void => {
@@ -297,7 +286,7 @@ renderCountdown();
 setInterval(renderCountdown, 1000);
 
 renderInvitePattern();
-updateMapWidgetSrc();
+updateMapFrameHeight();
 
 let invitePatternResizeTimer: number | undefined;
 
@@ -308,6 +297,6 @@ window.addEventListener("resize", () => {
 
   invitePatternResizeTimer = window.setTimeout(() => {
     renderInvitePattern();
-    updateMapWidgetSrc();
+    updateMapFrameHeight();
   }, 120);
 });
