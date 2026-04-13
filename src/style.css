@@ -1,4 +1,6 @@
-﻿:root {
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap&subset=cyrillic");
+
+:root {
   --bg: #e9d8d7;
   --accent: #92080e;
   --text: #1b1314;
@@ -9,6 +11,19 @@
   --palette-3: #daacb6;
   --palette-4: #efc4cd;
   --palette-5: #f8d9de;
+  --font-display: "Playfair Display", "Times New Roman", serif;
+  --font-body: "Georgia", "Times New Roman", serif;
+  --fw-regular: 400;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fs-h1: clamp(2.625rem, 8vw, 3rem);
+  --fs-h2: clamp(1.75rem, 6vw, 2rem);
+  --fs-h3: clamp(1.25rem, 4.8vw, 1.375rem);
+  --fs-body: clamp(1rem, 3.5vw, 1.125rem);
+  --fs-small: clamp(0.8125rem, 2.8vw, 0.875rem);
+  --fs-quote: clamp(1.5rem, 4.8vw, 1.75rem);
+  --lh-body: 1.55;
+  --ls-caps: 1.5px;
 }
 
 * {
@@ -22,9 +37,16 @@ body {
 }
 
 body {
-  font-family: "Georgia", "Times New Roman", serif;
+  font-family: var(--font-body);
   color: var(--text);
   background: var(--bg);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: var(--fw-regular);
+}
+
+p {
+  line-height: var(--lh-body);
 }
 
 .page {
@@ -57,7 +79,7 @@ body {
 .hero__love {
   position: absolute;
   display: block;
-  font-family: "Bodoni MT", "Didot", serif;
+  font-family: var(--font-display);
   color: var(--accent);
   font-size: clamp(14rem, 86vw, 42rem);
   line-height: 0.8;
@@ -93,9 +115,11 @@ body {
   display: grid;
   gap: 0.35rem;
   justify-items: start;
-  font-size: clamp(2.1rem, 8vw, 3.6rem);
-  line-height: 1;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 10vw, 4.5rem);
+  line-height: 0.95;
   letter-spacing: 0.05em;
+  font-weight: var(--fw-regular);
   color: var(--accent);
 }
 
@@ -108,15 +132,18 @@ body {
 
 .hero__invite {
   margin: 0 0 0.75rem;
-  font-size: clamp(1.1rem, 3vw, 1.65rem);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
   color: var(--muted);
 }
 
 .hero__names {
   margin: 0;
-  font-size: clamp(1.65rem, 5vw, 3.5rem);
-  letter-spacing: 0.04em;
-  line-height: 1.05;
+  font-family: var(--font-display);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-caps);
+  line-height: 1.08;
 }
 
 .hero__name-line {
@@ -131,7 +158,7 @@ body {
   font-family: "Brush Script MT", "Segoe Script", cursive;
   font-style: normal;
   font-size: 0.82em;
-  font-weight: 400;
+  font-weight: var(--fw-regular);
   margin: 0 0.24em;
   letter-spacing: 0.02em;
   vertical-align: middle;
@@ -157,11 +184,12 @@ body {
 .countdown__value {
   font-size: clamp(1.45rem, 5.8vw, 2.4rem);
   font-variant-numeric: tabular-nums;
+  font-weight: var(--fw-semibold);
 }
 
 .countdown__label {
   margin-top: 0.16rem;
-  font-size: clamp(0.68rem, 2.6vw, 0.9rem);
+  font-size: var(--fs-small);
   color: var(--muted);
 }
 
@@ -206,7 +234,7 @@ body {
 
 .love-stack {
   background: #f2f1f1;
-  padding: 0 0 3rem;
+  padding: 3rem 0;
 }
 
 .love-stack__inner {
@@ -225,7 +253,7 @@ body {
 .invite__glyph {
   position: absolute;
   color: var(--accent);
-  font-family: "Bodoni MT", "Didot", serif;
+  font-family: var(--font-display);
   line-height: 0.82;
   letter-spacing: -0.04em;
   opacity: 0.93;
@@ -239,6 +267,22 @@ body {
 .location-map {
   position: relative;
   padding-top: 0;
+}
+
+.love-stack__inner > section + section {
+  margin-top: 3rem;
+}
+
+.love-stack__inner > section + section::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -3rem;
+  transform: translateX(-50%);
+  width: min(calc(100% - 2.1rem), 320px);
+  height: 3rem;
+  background: #fff;
+  z-index: 1;
 }
 
 .love-card {
@@ -256,15 +300,16 @@ body {
 
 .invite__title {
   margin: 0;
-  font-weight: 400;
-  font-size: clamp(2.25rem, 8vw, 3.2rem);
-  line-height: 1.05;
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-h2);
+  line-height: 1.15;
 }
 
 .invite__paragraph {
   margin: 1.7rem 0 0;
-  font-size: clamp(1rem, 3.7vw, 1.3rem);
-  line-height: 1.5;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
 }
 
 .invite__photo {
@@ -277,8 +322,11 @@ body {
 
 .invite__quote {
   margin: 1.1rem 0 0;
-  font-size: clamp(1.8rem, 7vw, 2.5rem);
-  line-height: 1.05;
+  font-family: var(--font-body);
+  font-size: var(--fs-quote);
+  font-style: italic;
+  font-weight: var(--fw-regular);
+  line-height: 1.2;
 }
 
 .people-confirmation__content {
@@ -302,8 +350,10 @@ body {
 
 .person__label {
   margin: 0.6rem 0 0.95rem;
-  font-size: clamp(2rem, 8vw, 3rem);
-  line-height: 1;
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-semibold);
+  line-height: 1.1;
 }
 
 .confirmation {
@@ -312,20 +362,22 @@ body {
 
 .confirmation__title {
   margin: 0;
-  font-size: clamp(1.2rem, 4.6vw, 1.65rem);
-  font-weight: 500;
-  letter-spacing: 0.05em;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-caps);
 }
 
 .confirmation__text,
 .confirmation__date {
   margin: 0.55rem 0 0;
-  font-size: clamp(1rem, 3.7vw, 1.3rem);
-  line-height: 1.35;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
 }
 
 .confirmation__date {
   margin-top: 0.35rem;
+  font-weight: var(--fw-semibold);
 }
 
 .palette__content {
@@ -334,15 +386,16 @@ body {
 
 .palette__title {
   margin: 0;
-  font-size: clamp(2.3rem, 9vw, 3.8rem);
-  line-height: 0.95;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  font-weight: var(--fw-semibold);
 }
 
 .palette__text {
   margin: 1.4rem 0 0;
-  font-size: clamp(1rem, 3.7vw, 1.3rem);
-  line-height: 1.45;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
 }
 
 .palette__swatches {
@@ -386,9 +439,10 @@ body {
 .schedule__title {
   margin: 0;
   text-align: center;
-  font-size: clamp(2.1rem, 8.2vw, 3.3rem);
-  line-height: 0.98;
-  font-weight: 500;
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  font-weight: var(--fw-semibold);
 }
 
 .schedule__list {
@@ -408,8 +462,8 @@ body {
 
 .schedule__time {
   margin: 0;
-  font-size: clamp(1.05rem, 3.8vw, 1.35rem);
-  font-weight: 600;
+  font-size: clamp(1.125rem, 3.8vw, 1.25rem);
+  font-weight: var(--fw-bold);
   line-height: 1.25;
 }
 
@@ -419,17 +473,18 @@ body {
 
 .schedule__event {
   margin: 0;
-  font-size: clamp(1.05rem, 3.9vw, 1.35rem);
+  font-size: 1.125rem;
   line-height: 1.2;
-  font-weight: 700;
+  font-weight: var(--fw-semibold);
 }
 
 .schedule__place {
   margin: 0.22rem 0 0;
-  font-size: clamp(0.92rem, 3.2vw, 1.1rem);
+  font-size: 0.875rem;
   line-height: 1.35;
   color: var(--muted);
   font-style: italic;
+  opacity: 0.7;
 }
 
 .location-map__content {
@@ -438,9 +493,10 @@ body {
 
 .location-map__title {
   margin: 0;
-  font-size: clamp(1.7rem, 6.8vw, 2.6rem);
-  font-weight: 500;
-  line-height: 1.08;
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-semibold);
+  line-height: 1.15;
 }
 
 .location-map__frame-wrap {
@@ -468,11 +524,13 @@ body {
 .location-map__route {
   display: inline-block;
   margin-top: 1rem;
-  padding: 0.62rem 1.15rem;
+  padding: 1rem;
   border: 1px solid rgba(146, 8, 14, 0.35);
+  border-radius: 10px;
   color: var(--accent);
   text-decoration: none;
-  font-size: clamp(0.95rem, 3.3vw, 1.1rem);
+  font-size: 1rem;
+  font-weight: var(--fw-bold);
   line-height: 1;
   transition: background-color 160ms ease, color 160ms ease;
 }
@@ -483,9 +541,33 @@ body {
   color: #fff;
 }
 
+.text-date,
+.text-location,
+.text-key {
+  font-weight: var(--fw-semibold);
+}
+
+.text-time {
+  font-weight: var(--fw-bold);
+}
+
 @media (min-width: 768px) {
+  :root {
+    --ls-caps: 2px;
+  }
+
   .love-stack {
     padding-block: 4rem;
+  }
+
+  .love-stack__inner > section + section {
+    margin-top: 4rem;
+  }
+
+  .love-stack__inner > section + section::before {
+    top: -4rem;
+    width: min(calc(100% - 6rem), 620px);
+    height: 4rem;
   }
 
   .invite,
