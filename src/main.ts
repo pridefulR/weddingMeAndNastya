@@ -85,14 +85,15 @@ app.innerHTML = `
 
             <p class="invite__paragraph">
               Мы рады сообщить Вам, что 24.07.2026<br/>
-              состоится самое главное торжество в<br/>
-              нашей жизни - день нашей свадьбы!<br/>
-              Приглашаем Вас разделить с нами радость<br/>
+              состоится <span class="text-key">самое главное торжество</span> в<br/>
+              нашей жизни - <span class="text-key">день нашей свадьбы</span>!<br/>
+              Приглашаем Вас <span class="text-key">разделить с нами радость</span><br/>
               этого незабываемого дня.
             </p>
 
             <p class="invite__paragraph">
-              24.07.2026 в 16:00 Турбаза "Лесная Гавань"
+              <span class="text-date">24.07.2026</span> в <span class="text-time">16:00</span>
+              <span class="text-location">Турбаза "Лесная Гавань"</span>
             </p>
 
             <img
