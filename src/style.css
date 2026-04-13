@@ -244,9 +244,24 @@ p {
   overflow: hidden;
 }
 
+.love-stack__inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: min(calc(100% - 2.1rem), 320px);
+  background: #fff;
+  z-index: 1;
+  pointer-events: none;
+}
+
 .love-stack__background {
   position: absolute;
   inset: 0;
+  z-index: 0;
   pointer-events: none;
 }
 
@@ -267,6 +282,7 @@ p {
 .schedule,
 .location-map {
   position: relative;
+  z-index: 2;
   padding-top: 0;
 }
 
@@ -277,18 +293,19 @@ p {
 .love-stack__inner > section + section::before {
   content: "";
   position: absolute;
-  left: 50%;
-  top: -3rem;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  top: calc(-3rem - 1px);
   width: min(calc(100% - 2.1rem), 320px);
-  height: 3rem;
+  height: calc(3rem + 2px);
   background: #fff;
-  z-index: 1;
+  z-index: 3;
 }
 
 .love-card {
   position: relative;
-  z-index: 1;
+  z-index: 4;
   width: min(calc(100% - 2.1rem), 320px);
   margin-inline: auto;
   text-align: center;
@@ -359,6 +376,15 @@ p {
 
 .person__label + .confirmation {
   margin-top: 2.2rem;
+}
+
+.people-confirmation + .palette {
+  margin-top: 2.2rem;
+}
+
+.people-confirmation + .palette::before {
+  top: calc(-2.2rem - 1px);
+  height: calc(2.2rem + 2px);
 }
 
 .confirmation {
@@ -581,11 +607,11 @@ p {
 .text-date,
 .text-location,
 .text-key {
-  font-weight: var(--fw-semibold);
+  font-weight: var(--fw-regular);
 }
 
 .text-time {
-  font-weight: var(--fw-bold);
+  font-weight: var(--fw-regular);
 }
 
 @media (min-width: 768px) {
@@ -602,9 +628,13 @@ p {
   }
 
   .love-stack__inner > section + section::before {
-    top: -4rem;
+    top: calc(-4rem - 1px);
     width: min(calc(100% - 6rem), 620px);
-    height: 4rem;
+    height: calc(4rem + 2px);
+  }
+
+  .love-stack__inner::before {
+    width: min(calc(100% - 6rem), 620px);
   }
 
   .invite,
@@ -626,6 +656,15 @@ p {
 
   .people-confirmation__content {
     padding: 2.2rem 2.8rem 2.7rem;
+  }
+
+  .people-confirmation + .palette {
+    margin-top: 2.2rem;
+  }
+
+  .people-confirmation + .palette::before {
+    top: calc(-2.2rem - 1px);
+    height: calc(2.2rem + 2px);
   }
 
   .palette__content {
