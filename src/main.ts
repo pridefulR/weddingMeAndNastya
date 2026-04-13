@@ -148,6 +148,20 @@ app.innerHTML = `
           </div>
         </section>
 
+        <section class="questionnaire" aria-label="Анкета гостей">
+          <div class="love-card questionnaire__content">
+            <h2 class="questionnaire__title">Помогите нам сделать этот день идеальным</h2>
+            <a
+              class="questionnaire__link"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSc94bnDqOninkexvVFJ7PNPDrxS8t6_C9F5W2aFBsxnwCuBZA/viewform?usp=publish-editor"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Заполнить короткую форму
+            </a>
+          </div>
+        </section>
+
         <section class="schedule" aria-label="Свадебное расписание">
           <div class="love-card schedule__content">
             <h2 class="schedule__title">Свадебное расписание</h2>

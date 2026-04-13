@@ -263,6 +263,7 @@ p {
 .invite,
 .people-confirmation,
 .palette,
+.questionnaire,
 .schedule,
 .location-map {
   position: relative;
@@ -356,6 +357,10 @@ p {
   line-height: 1.1;
 }
 
+.person__label + .confirmation {
+  margin-top: 2.2rem;
+}
+
 .confirmation {
   margin-top: 1.5rem;
 }
@@ -429,6 +434,38 @@ p {
 
 .palette__swatch--5 {
   background: var(--palette-5);
+}
+
+.questionnaire__content {
+  padding: 1.5rem 1rem 2rem;
+}
+
+.questionnaire__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  line-height: 1.15;
+  font-weight: var(--fw-semibold);
+}
+
+.questionnaire__link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(146, 8, 14, 0.35);
+  border-radius: 10px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: var(--fw-bold);
+  line-height: 1;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+.questionnaire__link:hover,
+.questionnaire__link:focus-visible {
+  background: var(--accent);
+  color: #fff;
 }
 
 .schedule__content {
@@ -573,6 +610,7 @@ p {
   .invite,
   .people-confirmation,
   .palette,
+  .questionnaire,
   .schedule,
   .location-map {
     padding-top: 0;
@@ -592,6 +630,10 @@ p {
 
   .palette__content {
     padding: 2.3rem 2.8rem 2.8rem;
+  }
+
+  .questionnaire__content {
+    padding: 2.3rem 2.8rem 2.5rem;
   }
 
   .schedule__content {
