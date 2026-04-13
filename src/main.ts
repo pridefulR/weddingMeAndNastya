@@ -92,10 +92,7 @@ app.innerHTML = `
             </p>
 
             <p class="invite__paragraph">
-              24.07.2026 в 16:00 Турбаза "Лесная Гавань"<br/>
-              Турбаза "Лесная Гавань", Ульяновская<br/>
-              область, Чердаклинский район, Мирновское<br/>
-              сельское поселение, СНТ Юрманки
+              24.07.2026 в 16:00 Турбаза "Лесная Гавань"
             </p>
 
             <img
@@ -115,12 +112,12 @@ app.innerHTML = `
         <section class="people-confirmation" aria-label="Жених и невеста">
           <div class="love-card people-confirmation__content">
             <div class="person__photo-wrap">
-              <img class="person__photo" src="/images/husband.jpg" alt="Жених" loading="lazy" />
+              <img class="person__photo" src="/images/husband.png" alt="Жених" loading="lazy" />
             </div>
             <p class="person__label">Жених</p>
 
             <div class="person__photo-wrap">
-              <img class="person__photo" src="/images/wife.jpg" alt="Невеста" loading="lazy" />
+              <img class="person__photo" src="/images/wife.png" alt="Невеста" loading="lazy" />
             </div>
             <p class="person__label">Невеста</p>
 

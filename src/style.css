@@ -4,11 +4,11 @@
   --text: #1b1314;
   --muted: #3d2c2d;
   --countdown-bg: rgba(255, 255, 255, 0.42);
-  --palette-1: #efe0c5;
-  --palette-2: #e8cfd9;
-  --palette-3: #e5ccc7;
-  --palette-4: #e6b9ba;
-  --palette-5: #d4c2cf;
+  --palette-1: #bb7f82;
+  --palette-2: #dabcb4;
+  --palette-3: #dbb3a9;
+  --palette-4: #e7dbcb;
+  --palette-5: #e7dbcb;
 }
 
 * {
