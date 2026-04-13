@@ -147,6 +147,36 @@ app.innerHTML = `
           </div>
         </section>
 
+        <section class="schedule" aria-label="Свадебное расписание">
+          <div class="love-card schedule__content">
+            <h2 class="schedule__title">Свадебное расписание</h2>
+
+            <ul class="schedule__list">
+              <li class="schedule__item">
+                <p class="schedule__time">16:00</p>
+                <div class="schedule__details">
+                  <p class="schedule__event">Сбор гостей и фуршет</p>
+                  <p class="schedule__place">Турбаза "Лесная Гавань"</p>
+                </div>
+              </li>
+              <li class="schedule__item">
+                <p class="schedule__time">16:30</p>
+                <div class="schedule__details">
+                  <p class="schedule__event">Торжественный момент</p>
+                  <p class="schedule__place">Турбаза "Лесная Гавань"</p>
+                </div>
+              </li>
+              <li class="schedule__item">
+                <p class="schedule__time">17:30</p>
+                <div class="schedule__details">
+                  <p class="schedule__event">Свадебный банкет</p>
+                  <p class="schedule__place">Турбаза "Лесная Гавань"</p>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
         <section class="location-map" aria-label="Как добраться до турбазы">
           <div class="love-card location-map__content">
             <h2 class="location-map__title">Как добраться до турбазы</h2>
