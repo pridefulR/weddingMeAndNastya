@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:wght@400;500;700&display=swap&subset=cyrillic");
 
 :root {
   --bg: #e9d8d7;
@@ -12,16 +12,18 @@
   --palette-4: #efc4cd;
   --palette-5: #f8d9de;
   --font-display: "Playfair Display", "Times New Roman", serif;
-  --font-body: "Georgia", "Times New Roman", serif;
+  --font-heading: "Great Vibes", "Times New Roman", cursive;
+  --font-body: "Source Serif 4", "Times New Roman", serif;
   --fw-regular: 400;
   --fw-semibold: 600;
   --fw-bold: 700;
-  --fs-h1: clamp(2.625rem, 8vw, 3rem);
-  --fs-h2: clamp(1.75rem, 6vw, 2rem);
-  --fs-h3: clamp(1.25rem, 4.8vw, 1.375rem);
-  --fs-body: clamp(1rem, 3.5vw, 1.125rem);
+  --fs-h1: 2rem;
+  --fs-h2: 2rem;
+  --fs-h3: 1.375rem;
+  --fs-body: 1.125rem;
   --fs-small: clamp(0.8125rem, 2.8vw, 0.875rem);
   --fs-quote: clamp(1.5rem, 4.8vw, 1.75rem);
+  --fs-hero-names: clamp(2.625rem, 8vw, 3rem);
   --lh-body: 1.55;
   --ls-caps: 1.5px;
 }
@@ -47,6 +49,16 @@ body {
 
 p {
   line-height: var(--lh-body);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-heading);
+  color: var(--accent);
+  font-weight: var(--fw-regular);
+  letter-spacing: 0;
 }
 
 .page {
@@ -138,10 +150,10 @@ p {
 }
 
 .hero__names {
-  margin: 0;
   font-family: var(--font-display);
-  font-size: var(--fs-h1);
+  font-size: var(--fs-hero-names);
   font-weight: var(--fw-bold);
+  color: var(--text);
   letter-spacing: var(--ls-caps);
   line-height: 1.08;
 }
@@ -317,9 +329,6 @@ p {
 }
 
 .invite__title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: var(--fw-semibold);
   font-size: var(--fs-h2);
   line-height: 1.15;
 }
@@ -328,6 +337,13 @@ p {
   margin: 1.7rem 0 0;
   font-size: var(--fs-body);
   line-height: var(--lh-body);
+}
+
+.invite__date-highlight {
+  margin: 1rem 0 0;
+  font-size: var(--fs-h3);
+  line-height: 1;
+  color: var(--accent);
 }
 
 .invite__photo {
@@ -340,9 +356,9 @@ p {
 
 .invite__quote {
   margin: 1.1rem 0 0;
-  font-family: var(--font-body);
-  font-size: var(--fs-quote);
-  font-style: italic;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h2);
+  font-style: normal;
   font-weight: var(--fw-regular);
   line-height: 1.2;
 }
@@ -368,9 +384,10 @@ p {
 
 .person__label {
   margin: 0.6rem 0 0.95rem;
-  font-family: var(--font-display);
+  font-family: var(--font-heading);
+  color: var(--accent);
   font-size: var(--fs-h2);
-  font-weight: var(--fw-semibold);
+  font-weight: var(--fw-regular);
   line-height: 1.1;
 }
 
@@ -392,11 +409,8 @@ p {
 }
 
 .confirmation__title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: var(--fs-h3);
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--ls-caps);
+  font-size: var(--fs-h2);
+  letter-spacing: 0;
 }
 
 .confirmation__text,
@@ -416,11 +430,8 @@ p {
 }
 
 .palette__title {
-  margin: 0;
-  font-family: var(--font-display);
   font-size: var(--fs-h2);
   line-height: 1.1;
-  font-weight: var(--fw-semibold);
 }
 
 .palette__text {
@@ -467,11 +478,8 @@ p {
 }
 
 .questionnaire__title {
-  margin: 0;
-  font-family: var(--font-display);
   font-size: var(--fs-h2);
   line-height: 1.15;
-  font-weight: var(--fw-semibold);
 }
 
 .questionnaire__link {
@@ -500,12 +508,9 @@ p {
 }
 
 .schedule__title {
-  margin: 0;
   text-align: center;
-  font-family: var(--font-display);
   font-size: var(--fs-h2);
   line-height: 1.1;
-  font-weight: var(--fw-semibold);
 }
 
 .schedule__list {
@@ -555,10 +560,7 @@ p {
 }
 
 .location-map__title {
-  margin: 0;
-  font-family: var(--font-display);
   font-size: var(--fs-h2);
-  font-weight: var(--fw-semibold);
   line-height: 1.15;
 }
 

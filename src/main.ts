@@ -81,20 +81,13 @@ app.innerHTML = `
 
         <section class="invite">
           <div class="love-card invite__content">
-            <h2 class="invite__title">Дорогой<br/>Гость!</h2>
+            <h2 class="invite__title">Дорогие гости!</h2>
 
             <p class="invite__paragraph">
-              Мы рады сообщить Вам, что 24.07.2026<br/>
-              состоится <span class="text-key">самое главное торжество</span> в<br/>
-              нашей жизни - <span class="text-key">день нашей свадьбы</span>!<br/>
-              Приглашаем Вас <span class="text-key">разделить с нами радость</span><br/>
-              этого незабываемого дня.
+              Один из дней этого лета станет самым важным в нашей жизни, и мы хотим провести его с вами. Приглашаем вас на нашу свадьбу, которая состоится:
             </p>
 
-            <p class="invite__paragraph">
-              <span class="text-date">24.07.2026</span> в <span class="text-time">16:00</span>
-              <span class="text-location">Турбаза "Лесная Гавань"</span>
-            </p>
+            <p class="invite__date-highlight">24.07.2026</p>
 
             <img
               class="invite__photo"
@@ -123,7 +116,7 @@ app.innerHTML = `
             <p class="person__label">Невеста</p>
 
             <div class="confirmation">
-              <h3 class="confirmation__title">ПОДТВЕРЖДЕНИЕ</h3>
+              <h3 class="confirmation__title">Подтверждение</h3>
               <p class="confirmation__text">Пожалуйста подтвердите свое присутствие</p>
               <p class="confirmation__date">до 01.07.2026</p>
             </div>
