@@ -288,6 +288,7 @@ h3 {
 }
 
 .invite,
+.venue,
 .people-confirmation,
 .palette,
 .questionnaire,
@@ -365,6 +366,29 @@ h3 {
 
 .people-confirmation__content {
   padding: 1.25rem 0 2rem;
+}
+
+.venue__content {
+  padding: 1.5rem 1rem 1.8rem;
+}
+
+.venue__title {
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+}
+
+.venue__address {
+  margin: 1rem 0 0;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+}
+
+.venue__photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 1rem auto 0;
+  background: #dadada;
 }
 
 .person__photo-wrap {
@@ -640,6 +664,7 @@ h3 {
   }
 
   .invite,
+  .venue,
   .people-confirmation,
   .palette,
   .questionnaire,
@@ -658,6 +683,10 @@ h3 {
 
   .people-confirmation__content {
     padding: 2.2rem 2.8rem 2.7rem;
+  }
+
+  .venue__content {
+    padding: 2.2rem 2.8rem 2.4rem;
   }
 
   .people-confirmation + .palette {

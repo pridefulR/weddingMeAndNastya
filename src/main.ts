@@ -103,6 +103,22 @@ app.innerHTML = `
           </div>
         </section>
 
+        <section class="venue" aria-label="Место проведения">
+          <div class="love-card venue__content">
+            <h2 class="venue__title">Место</h2>
+            <p class="venue__address">
+              г. Ульяновск,<br/>
+              Турбаза "Лесная Гавань"
+            </p>
+            <img
+              class="venue__photo"
+              src="/images/restaurant.jpg"
+              alt="Ресторан Турбазы Лесная Гавань"
+              loading="lazy"
+            />
+          </div>
+        </section>
+
         <section class="people-confirmation" aria-label="Жених и невеста">
           <div class="love-card people-confirmation__content">
             <div class="person__photo-wrap">
