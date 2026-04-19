@@ -15,6 +15,7 @@ const ROUTE_LINK =
 const MAP_BREAKPOINT_DESKTOP = 768;
 const MAP_HEIGHT_MOBILE = 296;
 const MAP_HEIGHT_DESKTOP = 360;
+const IMG_BASE = `${import.meta.env.BASE_URL}images/`;
 const INVITE_LETTERS = ["L", "O", "V", "E"] as const;
 const HORIZONTAL_GAP_MIN = 0;
 const HORIZONTAL_GAP_MAX = 15;
@@ -91,7 +92,7 @@ app.innerHTML = `
 
             <img
               class="invite__photo"
-              src="/images/invitePhoto.jpg"
+              src="${IMG_BASE}invitePhoto.jpg"
               alt="Роман и Анастасия"
               loading="lazy"
             />
@@ -108,7 +109,7 @@ app.innerHTML = `
             </p>
             <img
               class="venue__photo"
-              src="/images/restaurant.jpg"
+              src="${IMG_BASE}restaurant.jpg"
               alt="Ресторан Турбазы Лесная Гавань"
               loading="lazy"
             />
@@ -118,12 +119,12 @@ app.innerHTML = `
         <section class="people-confirmation reveal-section" aria-label="Жених и невеста">
           <div class="love-card people-confirmation__content">
             <div class="person__photo-wrap">
-              <img class="person__photo" src="/images/husband.png" alt="Жених" loading="lazy" />
+              <img class="person__photo" src="${IMG_BASE}husband.png" alt="Жених" loading="lazy" />
             </div>
             <p class="person__label">Жених</p>
 
             <div class="person__photo-wrap">
-              <img class="person__photo" src="/images/wife.png" alt="Невеста" loading="lazy" />
+              <img class="person__photo" src="${IMG_BASE}wife.png" alt="Невеста" loading="lazy" />
             </div>
             <p class="person__label">Невеста</p>
 
@@ -152,7 +153,7 @@ app.innerHTML = `
             </div>
             <img
               class="palette__photo"
-              src="/images/dresscode.jpg"
+              src="${IMG_BASE}dresscode.jpg"
               alt="Примеры нарядов для дресс-кода"
               loading="lazy"
             />
