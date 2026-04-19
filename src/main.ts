@@ -23,6 +23,7 @@ const VERTICAL_GAP_MIN = 5;
 const VERTICAL_GAP_MAX = 20;
 const ROTATION_MIN = 0;
 const ROTATION_MAX = 30;
+const PATTERN_VIEWPORT_DEPTH_MULTIPLIER = 14;
 
 const app = document.querySelector<HTMLDivElement>("#app");
 
@@ -240,7 +241,7 @@ app.innerHTML = `
         </section>
 
         <section class="page-closing" aria-label="Финальная надпись">
-          <p class="page-closing__text reveal-section">Ждем Вас на свадьбе!</p>
+          <p class="page-closing__text reveal-section">Ждем Вас на нашей свадьбе!</p>
         </section>
       </div>
     </section>
@@ -258,9 +259,7 @@ const secondsLabelNode = document.querySelector<HTMLElement>("#secondsLabel");
 const invitePatternNode = document.querySelector<HTMLElement>("#invitePattern");
 const mapFrameNode = document.querySelector<HTMLIFrameElement>(".location-map__frame");
 const revealSections = Array.from(document.querySelectorAll<HTMLElement>(".reveal-section"));
-const loveStackMediaNodes = Array.from(
-  document.querySelectorAll<HTMLImageElement | HTMLIFrameElement>(".love-stack__inner img, .love-stack__inner iframe"),
-);
+let invitePatternRendered = false;
 
 if (
   !daysNode ||
@@ -328,25 +327,26 @@ const updateMapFrameHeight = (): void => {
   mapFrameNode.setAttribute("height", String(getMapHeightByViewport()));
 };
 
-const renderInvitePattern = (): void => {
+const renderInvitePattern = (): boolean => {
   if (!invitePatternNode) {
-    return;
+    return false;
   }
 
   const width = invitePatternNode.clientWidth;
   const height = invitePatternNode.clientHeight;
 
   if (width === 0 || height === 0) {
-    return;
+    return false;
   }
 
   const baseSize = Math.max(56, Math.min(126, Math.round(width * 0.1)));
+  const patternDepth = Math.max(height + baseSize, window.innerHeight * PATTERN_VIEWPORT_DEPTH_MULTIPLIER);
   invitePatternNode.textContent = "";
   let letterIndex = 0;
 
   let y = -baseSize;
 
-  while (y < height + baseSize) {
+  while (y < patternDepth) {
     const rowHeight = randomInt(Math.round(baseSize * 0.78), Math.round(baseSize * 1.08));
     let x = -baseSize;
 
@@ -374,25 +374,21 @@ const renderInvitePattern = (): void => {
 
     y += rowHeight + randomInt(VERTICAL_GAP_MIN, VERTICAL_GAP_MAX);
   }
+
+  return true;
 };
 
-const bindPatternRefreshOnMediaLoad = (): void => {
+const tryRenderInvitePatternOnce = (): void => {
+  if (invitePatternRendered) {
+    return;
+  }
+
+  invitePatternRendered = renderInvitePattern();
+};
+
+const bindPatternInitialRender = (): void => {
   window.addEventListener("load", () => {
-    renderInvitePattern();
-  });
-
-  loveStackMediaNodes.forEach((node) => {
-    if (node instanceof HTMLImageElement && node.complete) {
-      return;
-    }
-
-    node.addEventListener(
-      "load",
-      () => {
-        renderInvitePattern();
-      },
-      { once: true },
-    );
+    tryRenderInvitePatternOnce();
   });
 };
 
@@ -473,10 +469,10 @@ const initRevealSections = (): void => {
 renderCountdown();
 setInterval(renderCountdown, 1000);
 
-renderInvitePattern();
+tryRenderInvitePatternOnce();
 updateMapFrameHeight();
 initRevealSections();
-bindPatternRefreshOnMediaLoad();
+bindPatternInitialRender();
 
 let invitePatternResizeTimer: number | undefined;
 
@@ -486,7 +482,6 @@ window.addEventListener("resize", () => {
   }
 
   invitePatternResizeTimer = window.setTimeout(() => {
-    renderInvitePattern();
     updateMapFrameHeight();
   }, 120);
 });

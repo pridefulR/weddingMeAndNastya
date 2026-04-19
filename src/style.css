@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat+Alternates:wght@400&family=Playfair+Display:wght@400;600;700&display=swap&subset=cyrillic");
 
 :root {
+  color-scheme: light;
   --bg: #e9d8d7;
   --accent: #92080e;
   --text: #1b1314;
@@ -652,7 +653,7 @@ h3 {
 .page-closing {
   position: relative;
   z-index: 2;
-  background: transparent;
+  background: #fff;
   padding: 0.8rem 1.05rem 3rem;
 }
 
