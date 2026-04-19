@@ -251,7 +251,7 @@ h3 {
 
 .love-stack {
   background: #f2f1f1;
-  padding: 3rem 0;
+  padding: 3rem 0 0;
 }
 
 .love-stack__inner {
@@ -696,7 +696,7 @@ h3 {
   }
 
   .love-stack {
-    padding-block: 4rem;
+    padding: 4rem 0 0;
   }
 
   .love-stack__inner > section + section {
