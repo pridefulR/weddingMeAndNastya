@@ -653,7 +653,7 @@ h3 {
 .page-closing {
   position: relative;
   z-index: 2;
-  background: #fff;
+  background: transparent;
   padding: 0.8rem 1.05rem 3rem;
 }
 

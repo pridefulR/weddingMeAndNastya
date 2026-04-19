@@ -23,7 +23,8 @@ const VERTICAL_GAP_MIN = 5;
 const VERTICAL_GAP_MAX = 20;
 const ROTATION_MIN = 0;
 const ROTATION_MAX = 30;
-const PATTERN_VIEWPORT_DEPTH_MULTIPLIER = 14;
+const PATTERN_BOTTOM_OVERDRAW_PT = 30;
+const PX_PER_PT = 4 / 3;
 
 const app = document.querySelector<HTMLDivElement>("#app");
 
@@ -95,7 +96,7 @@ app.innerHTML = `
               class="invite__photo"
               src="${IMG_BASE}invitePhoto.jpg"
               alt="Роман и Анастасия"
-              loading="lazy"
+              loading="eager"
             />
 
           </div>
@@ -112,7 +113,7 @@ app.innerHTML = `
               class="venue__photo"
               src="${IMG_BASE}restaurant.jpg"
               alt="Ресторан Турбазы Лесная Гавань"
-              loading="lazy"
+              loading="eager"
             />
           </div>
         </section>
@@ -120,12 +121,12 @@ app.innerHTML = `
         <section class="people-confirmation reveal-section" aria-label="Жених и невеста">
           <div class="love-card people-confirmation__content">
             <div class="person__photo-wrap">
-              <img class="person__photo" src="${IMG_BASE}husband.png" alt="Жених" loading="lazy" />
+              <img class="person__photo" src="${IMG_BASE}husband.png" alt="Жених" loading="eager" />
             </div>
             <p class="person__label">Жених</p>
 
             <div class="person__photo-wrap">
-              <img class="person__photo" src="${IMG_BASE}wife.png" alt="Невеста" loading="lazy" />
+              <img class="person__photo" src="${IMG_BASE}wife.png" alt="Невеста" loading="eager" />
             </div>
             <p class="person__label">Невеста</p>
 
@@ -156,7 +157,7 @@ app.innerHTML = `
               class="palette__photo"
               src="${IMG_BASE}dresscode.jpg"
               alt="Примеры нарядов для дресс-кода"
-              loading="lazy"
+              loading="eager"
             />
           </div>
         </section>
@@ -257,6 +258,7 @@ const hoursLabelNode = document.querySelector<HTMLElement>("#hoursLabel");
 const minutesLabelNode = document.querySelector<HTMLElement>("#minutesLabel");
 const secondsLabelNode = document.querySelector<HTMLElement>("#secondsLabel");
 const invitePatternNode = document.querySelector<HTMLElement>("#invitePattern");
+const closingTextNode = document.querySelector<HTMLElement>(".page-closing__text");
 const mapFrameNode = document.querySelector<HTMLIFrameElement>(".location-map__frame");
 const revealSections = Array.from(document.querySelectorAll<HTMLElement>(".reveal-section"));
 let invitePatternRendered = false;
@@ -334,20 +336,23 @@ const renderInvitePattern = (): boolean => {
 
   const width = invitePatternNode.clientWidth;
   const height = invitePatternNode.clientHeight;
+  const patternBottomOverdrawPx = Math.round(PATTERN_BOTTOM_OVERDRAW_PT * PX_PER_PT);
 
   if (width === 0 || height === 0) {
     return false;
   }
 
   const baseSize = Math.max(56, Math.min(126, Math.round(width * 0.1)));
-  const patternDepth = Math.max(height + baseSize, window.innerHeight * PATTERN_VIEWPORT_DEPTH_MULTIPLIER);
+  const closingBottom =
+    closingTextNode !== null
+      ? closingTextNode.offsetTop + closingTextNode.offsetHeight
+      : height;
+  const patternDepth = Math.max(height + patternBottomOverdrawPx, closingBottom + patternBottomOverdrawPx);
   invitePatternNode.textContent = "";
   let letterIndex = 0;
+  let maxGlyphTop = Number.NEGATIVE_INFINITY;
 
-  let y = -baseSize;
-
-  while (y < patternDepth) {
-    const rowHeight = randomInt(Math.round(baseSize * 0.78), Math.round(baseSize * 1.08));
+  const renderPatternRow = (rowTop: number): void => {
     let x = -baseSize;
 
     while (x < width + baseSize) {
@@ -361,7 +366,7 @@ const renderInvitePattern = (): boolean => {
       glyph.className = "invite__glyph";
       glyph.textContent = letter;
       glyph.style.left = `${x}px`;
-      glyph.style.top = `${y}px`;
+      glyph.style.top = `${rowTop}px`;
       glyph.style.fontSize = `${fontSize}px`;
       glyph.style.transform = `rotate(${rotation}deg)`;
 
@@ -372,7 +377,20 @@ const renderInvitePattern = (): boolean => {
       x += estimatedWidth + randomInt(HORIZONTAL_GAP_MIN, HORIZONTAL_GAP_MAX);
     }
 
+    if (rowTop > maxGlyphTop) {
+      maxGlyphTop = rowTop;
+    }
+  };
+
+  let y = -baseSize;
+  while (y < patternDepth) {
+    const rowHeight = randomInt(Math.round(baseSize * 0.78), Math.round(baseSize * 1.08));
+    renderPatternRow(y);
     y += rowHeight + randomInt(VERTICAL_GAP_MIN, VERTICAL_GAP_MAX);
+  }
+
+  if (maxGlyphTop < patternDepth) {
+    renderPatternRow(patternDepth);
   }
 
   return true;
@@ -387,6 +405,11 @@ const tryRenderInvitePatternOnce = (): void => {
 };
 
 const bindPatternInitialRender = (): void => {
+  if (document.readyState === "complete") {
+    tryRenderInvitePatternOnce();
+    return;
+  }
+
   window.addEventListener("load", () => {
     tryRenderInvitePatternOnce();
   });
@@ -469,7 +492,6 @@ const initRevealSections = (): void => {
 renderCountdown();
 setInterval(renderCountdown, 1000);
 
-tryRenderInvitePatternOnce();
 updateMapFrameHeight();
 initRevealSections();
 bindPatternInitialRender();
