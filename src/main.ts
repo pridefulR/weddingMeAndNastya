@@ -141,7 +141,7 @@ app.innerHTML = `
 
         <section class="palette" aria-label="Дресс-код и палитра">
           <div class="love-card palette__content">
-            <h2 class="palette__title">Ждем Вас на<br/>свадьбе!</h2>
+            <h2 class="palette__title">Дресс-код</h2>
             <p class="palette__text">
               Будем благодарны, если при выборе<br/>
               нарядов на наше торжество вы<br/>
@@ -154,12 +154,21 @@ app.innerHTML = `
               <span class="palette__swatch palette__swatch--4"></span>
               <span class="palette__swatch palette__swatch--5"></span>
             </div>
+            <img
+              class="palette__photo"
+              src="/images/dresscode.jpg"
+              alt="Примеры нарядов для дресс-кода"
+              loading="lazy"
+            />
           </div>
         </section>
 
         <section class="questionnaire" aria-label="Анкета гостей">
           <div class="love-card questionnaire__content">
-            <h2 class="questionnaire__title">Помогите нам сделать этот день идеальным</h2>
+            <h2 class="questionnaire__title">Анкета гостя</h2>
+            <p class="questionnaire__text">
+              Ваши ответы на вопросы помогут нам при организации торжества. Будем ждать ответ как можно скорее ♥
+            </p>
             <a
               class="questionnaire__link"
               href="https://docs.google.com/forms/d/e/1FAIpQLSc94bnDqOninkexvVFJ7PNPDrxS8t6_C9F5W2aFBsxnwCuBZA/viewform?usp=publish-editor"
@@ -186,7 +195,14 @@ app.innerHTML = `
               <li class="schedule__item">
                 <p class="schedule__time">16:30</p>
                 <div class="schedule__details">
-                  <p class="schedule__event">Торжественный момент</p>
+                  <p class="schedule__event">Регистрация</p>
+                  <p class="schedule__place">Турбаза "Лесная Гавань"</p>
+                </div>
+              </li>
+              <li class="schedule__item">
+                <p class="schedule__time">17:00</p>
+                <div class="schedule__details">
+                  <p class="schedule__event">Фотосессия</p>
                   <p class="schedule__place">Турбаза "Лесная Гавань"</p>
                 </div>
               </li>
@@ -226,6 +242,10 @@ app.innerHTML = `
           </div>
         </section>
       </div>
+    </section>
+
+    <section class="page-closing" aria-label="Финальная надпись">
+      <p class="page-closing__text">Ждем Вас на свадьбе!</p>
     </section>
   </main>
 `;

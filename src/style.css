@@ -497,6 +497,14 @@ h3 {
   background: var(--palette-5);
 }
 
+.palette__photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 1rem auto 0;
+  background: #dadada;
+}
+
 .questionnaire__content {
   padding: 1.5rem 1rem 2rem;
 }
@@ -504,6 +512,12 @@ h3 {
 .questionnaire__title {
   font-size: var(--fs-h2);
   line-height: 1.15;
+}
+
+.questionnaire__text {
+  margin: 1rem 0 0;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
 }
 
 .questionnaire__link {
@@ -599,7 +613,7 @@ h3 {
   content: "";
   position: absolute;
   inset: 0;
-  border: 2px solid var(--bg);
+  border: 2px solid var(--accent);
   pointer-events: none;
   z-index: 1;
 }
@@ -638,6 +652,21 @@ h3 {
 
 .text-time {
   font-weight: var(--fw-regular);
+}
+
+.page-closing {
+  background: #f2f1f1;
+  padding: 0 1.05rem 3rem;
+}
+
+.page-closing__text {
+  width: min(calc(100% - 2.1rem), 320px);
+  margin: 0 auto;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: var(--fs-h2);
+  color: var(--accent);
+  line-height: 1.1;
 }
 
 @media (min-width: 768px) {
@@ -726,5 +755,13 @@ h3 {
 
   .invite__glyph {
     opacity: 0.9;
+  }
+
+  .page-closing {
+    padding: 0 3rem 4rem;
+  }
+
+  .page-closing__text {
+    width: min(calc(100% - 6rem), 620px);
   }
 }
