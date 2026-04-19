@@ -79,7 +79,7 @@ app.innerHTML = `
       <div class="love-stack__inner">
         <div id="invitePattern" class="love-stack__background" aria-hidden="true"></div>
 
-        <section class="invite">
+        <section class="invite reveal-section">
           <div class="love-card invite__content">
             <h2 class="invite__title">Дорогие гости!</h2>
 
@@ -96,14 +96,10 @@ app.innerHTML = `
               loading="lazy"
             />
 
-            <p class="invite__quote">
-              Там, где посеяна любовь,<br/>
-              растет радость.
-            </p>
           </div>
         </section>
 
-        <section class="venue" aria-label="Место проведения">
+        <section class="venue reveal-section" aria-label="Место проведения">
           <div class="love-card venue__content">
             <h2 class="venue__title">Место</h2>
             <p class="venue__address">
@@ -119,7 +115,7 @@ app.innerHTML = `
           </div>
         </section>
 
-        <section class="people-confirmation" aria-label="Жених и невеста">
+        <section class="people-confirmation reveal-section" aria-label="Жених и невеста">
           <div class="love-card people-confirmation__content">
             <div class="person__photo-wrap">
               <img class="person__photo" src="/images/husband.png" alt="Жених" loading="lazy" />
@@ -139,7 +135,7 @@ app.innerHTML = `
           </div>
         </section>
 
-        <section class="palette" aria-label="Дресс-код и палитра">
+        <section class="palette reveal-section" aria-label="Дресс-код и палитра">
           <div class="love-card palette__content">
             <h2 class="palette__title">Дресс-код</h2>
             <p class="palette__text">
@@ -163,11 +159,11 @@ app.innerHTML = `
           </div>
         </section>
 
-        <section class="questionnaire" aria-label="Анкета гостей">
+        <section class="questionnaire reveal-section" aria-label="Анкета гостей">
           <div class="love-card questionnaire__content">
             <h2 class="questionnaire__title">Анкета гостя</h2>
             <p class="questionnaire__text">
-              Ваши ответы на вопросы помогут нам при организации торжества. Будем ждать ответ как можно скорее ♥
+              Ваши ответы на вопросы помогут нам при организации торжества. Будем ждать ответ как можно скорее ❤️
             </p>
             <a
               class="questionnaire__link"
@@ -180,7 +176,7 @@ app.innerHTML = `
           </div>
         </section>
 
-        <section class="schedule" aria-label="Свадебное расписание">
+        <section class="schedule reveal-section" aria-label="Свадебное расписание">
           <div class="love-card schedule__content">
             <h2 class="schedule__title">Свадебное расписание</h2>
 
@@ -217,7 +213,7 @@ app.innerHTML = `
           </div>
         </section>
 
-        <section class="location-map" aria-label="Как добраться до турбазы">
+        <section class="location-map reveal-section" aria-label="Как добраться до турбазы">
           <div class="love-card location-map__content">
             <h2 class="location-map__title">Как добраться до турбазы</h2>
             <div class="location-map__frame-wrap">
@@ -245,7 +241,7 @@ app.innerHTML = `
     </section>
 
     <section class="page-closing" aria-label="Финальная надпись">
-      <p class="page-closing__text">Ждем Вас на свадьбе!</p>
+      <p class="page-closing__text reveal-section">Ждем Вас на свадьбе!</p>
     </section>
   </main>
 `;
@@ -256,6 +252,7 @@ const minutesNode = document.querySelector<HTMLElement>("#minutes");
 const secondsNode = document.querySelector<HTMLElement>("#seconds");
 const invitePatternNode = document.querySelector<HTMLElement>("#invitePattern");
 const mapFrameNode = document.querySelector<HTMLIFrameElement>(".location-map__frame");
+const revealSections = Array.from(document.querySelectorAll<HTMLElement>(".reveal-section"));
 
 if (!daysNode || !hoursNode || !minutesNode || !secondsNode) {
   throw new Error("Countdown nodes are missing");
@@ -353,11 +350,70 @@ const renderCountdown = (): void => {
   secondsNode.textContent = formatValue(parts.seconds);
 };
 
+const initRevealSections = (): void => {
+  if (revealSections.length === 0) {
+    return;
+  }
+
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+    revealSections.forEach((section) => {
+      section.classList.add("is-visible");
+    });
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries, currentObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        (entry.target as HTMLElement).classList.add("is-visible");
+        currentObserver.unobserve(entry.target);
+      });
+    },
+    {
+      threshold: 0.05,
+      rootMargin: "0px",
+    },
+  );
+
+  revealSections.forEach((section) => {
+    observer.observe(section);
+  });
+
+  const revealRemainingAtPageEnd = (): void => {
+    const reachedBottom =
+      window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+
+    if (!reachedBottom) {
+      return;
+    }
+
+    revealSections.forEach((section) => {
+      if (section.classList.contains("is-visible")) {
+        return;
+      }
+
+      section.classList.add("is-visible");
+      observer.unobserve(section);
+    });
+  };
+
+  window.addEventListener("scroll", revealRemainingAtPageEnd, { passive: true });
+  window.addEventListener("resize", revealRemainingAtPageEnd);
+  revealRemainingAtPageEnd();
+};
+
 renderCountdown();
 setInterval(renderCountdown, 1000);
 
 renderInvitePattern();
 updateMapFrameHeight();
+initRevealSections();
 
 let invitePatternResizeTimer: number | undefined;
 
