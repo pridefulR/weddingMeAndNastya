@@ -57,19 +57,19 @@ app.innerHTML = `
         <section class="hero__countdown" aria-label="Обратный отсчет до свадьбы">
           <div class="countdown__item">
             <div id="days" class="countdown__value">00</div>
-            <div class="countdown__label">дней</div>
+            <div id="daysLabel" class="countdown__label">дней</div>
           </div>
           <div class="countdown__item">
             <div id="hours" class="countdown__value">00</div>
-            <div class="countdown__label">часов</div>
+            <div id="hoursLabel" class="countdown__label">часов</div>
           </div>
           <div class="countdown__item">
             <div id="minutes" class="countdown__value">00</div>
-            <div class="countdown__label">минут</div>
+            <div id="minutesLabel" class="countdown__label">минут</div>
           </div>
           <div class="countdown__item">
             <div id="seconds" class="countdown__value">00</div>
-            <div class="countdown__label">секунд</div>
+            <div id="secondsLabel" class="countdown__label">секунд</div>
           </div>
         </section>
       </div>
@@ -237,11 +237,11 @@ app.innerHTML = `
             </a>
           </div>
         </section>
-      </div>
-    </section>
 
-    <section class="page-closing" aria-label="Финальная надпись">
-      <p class="page-closing__text reveal-section">Ждем Вас на свадьбе!</p>
+        <section class="page-closing" aria-label="Финальная надпись">
+          <p class="page-closing__text reveal-section">Ждем Вас на свадьбе!</p>
+        </section>
+      </div>
     </section>
   </main>
 `;
@@ -250,11 +250,27 @@ const daysNode = document.querySelector<HTMLElement>("#days");
 const hoursNode = document.querySelector<HTMLElement>("#hours");
 const minutesNode = document.querySelector<HTMLElement>("#minutes");
 const secondsNode = document.querySelector<HTMLElement>("#seconds");
+const daysLabelNode = document.querySelector<HTMLElement>("#daysLabel");
+const hoursLabelNode = document.querySelector<HTMLElement>("#hoursLabel");
+const minutesLabelNode = document.querySelector<HTMLElement>("#minutesLabel");
+const secondsLabelNode = document.querySelector<HTMLElement>("#secondsLabel");
 const invitePatternNode = document.querySelector<HTMLElement>("#invitePattern");
 const mapFrameNode = document.querySelector<HTMLIFrameElement>(".location-map__frame");
 const revealSections = Array.from(document.querySelectorAll<HTMLElement>(".reveal-section"));
+const loveStackMediaNodes = Array.from(
+  document.querySelectorAll<HTMLImageElement | HTMLIFrameElement>(".love-stack__inner img, .love-stack__inner iframe"),
+);
 
-if (!daysNode || !hoursNode || !minutesNode || !secondsNode) {
+if (
+  !daysNode ||
+  !hoursNode ||
+  !minutesNode ||
+  !secondsNode ||
+  !daysLabelNode ||
+  !hoursLabelNode ||
+  !minutesLabelNode ||
+  !secondsLabelNode
+) {
   throw new Error("Countdown nodes are missing");
 }
 
@@ -272,6 +288,26 @@ const splitCountdown = (distanceMs: number): CountdownParts => {
 };
 
 const formatValue = (value: number): string => value.toString().padStart(2, "0");
+
+const formatRuPlural = (value: number, one: string, few: string, many: string): string => {
+  const absValue = Math.abs(value);
+  const mod10 = absValue % 10;
+  const mod100 = absValue % 100;
+
+  if (mod100 >= 11 && mod100 <= 14) {
+    return many;
+  }
+
+  if (mod10 === 1) {
+    return one;
+  }
+
+  if (mod10 >= 2 && mod10 <= 4) {
+    return few;
+  }
+
+  return many;
+};
 
 const randomInt = (min: number, max: number): number => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -339,6 +375,26 @@ const renderInvitePattern = (): void => {
   }
 };
 
+const bindPatternRefreshOnMediaLoad = (): void => {
+  window.addEventListener("load", () => {
+    renderInvitePattern();
+  });
+
+  loveStackMediaNodes.forEach((node) => {
+    if (node instanceof HTMLImageElement && node.complete) {
+      return;
+    }
+
+    node.addEventListener(
+      "load",
+      () => {
+        renderInvitePattern();
+      },
+      { once: true },
+    );
+  });
+};
+
 const renderCountdown = (): void => {
   const now = Date.now();
   const distance = targetTime - now;
@@ -348,6 +404,11 @@ const renderCountdown = (): void => {
   hoursNode.textContent = formatValue(parts.hours);
   minutesNode.textContent = formatValue(parts.minutes);
   secondsNode.textContent = formatValue(parts.seconds);
+
+  daysLabelNode.textContent = formatRuPlural(parts.days, "день", "дня", "дней");
+  hoursLabelNode.textContent = formatRuPlural(parts.hours, "час", "часа", "часов");
+  minutesLabelNode.textContent = formatRuPlural(parts.minutes, "минута", "минуты", "минут");
+  secondsLabelNode.textContent = formatRuPlural(parts.seconds, "секунда", "секунды", "секунд");
 };
 
 const initRevealSections = (): void => {
@@ -414,6 +475,7 @@ setInterval(renderCountdown, 1000);
 renderInvitePattern();
 updateMapFrameHeight();
 initRevealSections();
+bindPatternRefreshOnMediaLoad();
 
 let invitePatternResizeTimer: number | undefined;
 

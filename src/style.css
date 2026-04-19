@@ -650,8 +650,14 @@ h3 {
 }
 
 .page-closing {
-  background: #fff;
-  padding: 0 1.05rem 3rem;
+  position: relative;
+  z-index: 2;
+  background: transparent;
+  padding: 0.8rem 1.05rem 3rem;
+}
+
+.page-closing::before {
+  display: none;
 }
 
 .page-closing__text {
@@ -772,7 +778,7 @@ h3 {
   }
 
   .page-closing {
-    padding: 0 3rem 4rem;
+    padding: 1rem 3rem 4rem;
   }
 
   .page-closing__text {
