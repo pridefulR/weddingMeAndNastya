@@ -134,7 +134,7 @@ h3 {
   letter-spacing: 0.05em;
   font-weight: var(--fw-regular);
   color: var(--accent);
-  --hero-enter-offset: 16px;
+  --hero-enter-offset: 28px;
   --hero-enter-direction: -1;
   opacity: 0;
   transform: translateX(calc(var(--hero-enter-offset) * var(--hero-enter-direction)));
@@ -144,7 +144,7 @@ h3 {
 .hero__text {
   min-width: 0;
   max-width: 38rem;
-  --hero-enter-offset: 16px;
+  --hero-enter-offset: 28px;
   --hero-enter-direction: 1;
   opacity: 0;
   transform: translateX(calc(var(--hero-enter-offset) * var(--hero-enter-direction)));
