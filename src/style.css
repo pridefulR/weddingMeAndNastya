@@ -134,14 +134,21 @@ h3 {
   letter-spacing: 0.05em;
   font-weight: var(--fw-regular);
   color: var(--accent);
+  --hero-enter-offset: 16px;
+  --hero-enter-direction: -1;
+  opacity: 0;
+  transform: translateX(calc(var(--hero-enter-offset) * var(--hero-enter-direction)));
+  animation: hero-enter-x 850ms ease-out forwards;
 }
 
 .hero__text {
   min-width: 0;
   max-width: 38rem;
+  --hero-enter-offset: 16px;
+  --hero-enter-direction: 1;
   opacity: 0;
-  transform: translateY(14px);
-  animation: fade-up 850ms ease-out forwards;
+  transform: translateX(calc(var(--hero-enter-offset) * var(--hero-enter-direction)));
+  animation: hero-enter-x 850ms ease-out forwards;
 }
 
 .hero__invite {
@@ -209,15 +216,15 @@ h3 {
   color: var(--muted);
 }
 
-@keyframes fade-up {
+@keyframes hero-enter-x {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateX(calc(var(--hero-enter-offset) * var(--hero-enter-direction)));
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 }
 
@@ -683,6 +690,13 @@ h3 {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .hero__date,
+  .hero__text {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
   .reveal-section {
     opacity: 1;
     transform: none;
