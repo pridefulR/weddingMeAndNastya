@@ -76,6 +76,7 @@ h3 {
 
 .hero__inner {
   position: relative;
+  container-type: inline-size;
   min-height: 100vh;
   width: min(100%, 1120px);
   margin-inline: auto;
@@ -214,6 +215,23 @@ h3 {
   margin-top: 0.16rem;
   font-size: var(--fs-small);
   color: var(--muted);
+}
+
+@container (max-width: 28rem) {
+  .hero__content {
+    grid-template-columns: minmax(0, max-content);
+    justify-items: start;
+    width: fit-content;
+    max-width: 100%;
+    gap: 1rem;
+  }
+
+  .hero__date {
+    grid-auto-flow: column;
+    gap: 0.45em;
+    font-size: clamp(2.35rem, 11vw, 3rem);
+    line-height: 1;
+  }
 }
 
 @keyframes hero-enter-x {
