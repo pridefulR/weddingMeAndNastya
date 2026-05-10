@@ -217,6 +217,12 @@ h3 {
   color: var(--muted);
 }
 
+@media (max-width: 767px) {
+  .hero__love {
+    font-size: clamp(11rem, 72vw, 18rem);
+  }
+}
+
 @container (max-width: 28rem) {
   .hero__content {
     grid-template-columns: minmax(0, max-content);
